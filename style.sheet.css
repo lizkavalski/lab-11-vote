@@ -1,15 +1,14 @@
-#itemspic{
-    border: 2px solid blue;
-    width: 20vw;
-    float: left;
+section li{
+    display: inline;
 }
-#itemspic1{
-    border: 2px solid rgb(255, 0, 221);
-    width: 20vw;
-    float: right;
+section img{
+    border: 3px groove blue;
+    max-width: 150px;
+    min-width: 150px;
+    max-height: 150px;
+    min-height: 150px;
+    margin: 30px;
 }
-#itemspic2{
-    border: 2px solid green;
-    width: 20vw;
-    margin-left:500px;
+div li{
+    border: 3 solid black;
 }
