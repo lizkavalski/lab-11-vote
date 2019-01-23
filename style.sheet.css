@@ -1,0 +1,15 @@
+#itemspic{
+    border: 2px solid blue;
+    width: 20vw;
+    float: left;
+}
+#itemspic1{
+    border: 2px solid rgb(255, 0, 221);
+    width: 20vw;
+    float: right;
+}
+#itemspic2{
+    border: 2px solid green;
+    width: 20vw;
+    margin-left:500px;
+}
