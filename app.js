@@ -1,18 +1,21 @@
 'use strict'
-//Globle varable//
+//-----------------Globle varable----------------------------------------------//
 var allItems =[];
-var votes=0;
+var votes=[];
 var views=0;
 var totalVotes=0
-//grabbing from the HTML//
+var chartDrawn = false;
+//-------------------grabbing from the HTML------------------------------------//
+
 var itemsPicZero= document.getElementById('itemspic');
 var itemsPicOne= document.getElementById('itemspic1');
 var itemsPicTwo= document.getElementById('itemspic2');
 var imageUnorderlist= document.getElementById('totalvotes')
-//putting the element into an array//
+
+//------------------putting the element from the html into an array---------------//
 var threeImages=[itemsPicZero, itemsPicOne, itemsPicTwo]
 
-// making an c.Object
+//----------------------------- making an c.Object------------------------------//
 function ItemsPicked(name) {
     this.filepath= `images/${name}.jpg`;
     this.name=name;
@@ -41,7 +44,8 @@ function ItemsPicked(name) {
     new ItemsPicked('wine-glass');
     new ItemsPicked('sweep-one');
     new ItemsPicked('usb-one');
-//making itto a list
+
+//__________________________________making into a list__________________________________________________//
 function render(){
     var liEl= document.createElement('li');
 
@@ -55,7 +59,8 @@ function render(){
 
     imageUnorderlist.appendChild(liEl);
 }
-//to stop repeat same image on the same screen     
+
+//__________________________________to stop repeat same image on and between cycle screen_________//     
 var previousItemslist=[];
 var currentItemlist=[];
 function noPatterns (){
@@ -67,17 +72,17 @@ function noPatterns (){
         currentItemlist.unshift(random)
 
         //console.log( "and if")
-        }else{console.log('duplicate stopped')}
+    }else{
+        random= Math.floor(Math.random()*(allItems.length-1));
+        console.log('duplicate stopped')}
     }
-    // console.log(currentItemlist,'now')
-    // console.log(previousItemslist,'past')
+  
    
 }
 
-//to get three images to appear
+//-------------------------------------to get three images to appear---------------------------------------//
 function threeRandomPics() {
     noPatterns();
-    //noRepeat();
     for (var i=0; i< threeImages.length;i++){
             threeImages[i].src = allItems[currentItemlist[i]].filepath;
             threeImages[i].alt = allItems[currentItemlist[i]].name;
@@ -85,22 +90,58 @@ function threeRandomPics() {
             allItems[currentItemlist[i]].views++;
             }    
         } 
+//__________________________________________________chart______________________________________//
+var data = {
+labels: ['bag', 'banana', 'bathroom','boots','breakfast','bubblegum', 'chair','cthulhu','dog-duck','dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass'], // titles array we declared earlier
+datasets: [{
+    data: votes, // votes array we declared earlier
+    backgroundColor: [
+    'bisque',
+    'darkgray',
+    'burlywood',
+    'lightblue',
+    'navy'
+    ],
+    hoverBackgroundColor: [
+    'purple',
+    'purple',
+    'purple',
+    'purple',
+    'purple'
+    ]
+}]
+};
 
-// eventlistener
+function drawChart() {
+console.log(votes, 'votes')
+
+var ctx = document.getElementById('tallys').getContext('2d');
+var tallyOfVotes = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        //options: options
+    });
+}
+// eventlistener------------------------------------------------------------------------------/
 document.getElementsByTagName('section')[0].addEventListener ('click', handleClick);
+// document.getElementById('draw-chart').addEventListener('click', function() {
+//     drawChart();
+//     console.log('chart was drawn');
+//   });
 
+//event handle---------------------------------------------------------------------------------/
 function handleClick(event) {
    event.target.title
   for( var i=0; i < allItems.length; i++){
       if (allItems[i].name === event.target.title){
-          allItems[i].votes++;
+          votes.push(allItems[i].votes++);
       }
   }
    console.log('i pick this one', event.target.title)
     totalVotes++
     if (totalVotes > 24){
         document.getElementsByTagName('section') [0].removeEventListener('click', handleClick);
-        render();
+        drawChart();
     }
   //console.log(event.target);
 
