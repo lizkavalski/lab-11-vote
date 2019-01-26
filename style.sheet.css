@@ -1,3 +1,13 @@
+
+header{
+    background: #2525bc;
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    float:center;
+}
+body{
+    background: #e0e0e2;
+}
 section li{
     display: inline;
 }
